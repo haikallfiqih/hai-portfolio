@@ -1,6 +1,9 @@
-<x-home>
-   
-    <!--================Header Menu Area =================-->
+@extends('layouts.home')
+
+@section('title', 'Home')
+
+@section('content')
+@foreach ($profiles as $profile)
 	<header class="header_area">
 		<div class="main_menu">
 			<nav class="navbar navbar-expand-lg navbar-light">
@@ -53,7 +56,7 @@
 							<div class="media-body">
 								<div class="personal_text">
 									<h6>Hello Everybody, i am</h6>
-									<h3>Donald McKinney</h3>
+									<h3>{{ $profile->name }}</h3>
 									<h4>Junior UI/UX Developer</h4>
 									<p>You will begin to realise why this exercise is called the Dickens Pattern (with reference to the ghost showing Scrooge some different futures)</p>
 									<ul class="list basic_info">
@@ -489,15 +492,6 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
         		</div>
         	</div>
         </footer>
-        <!--================End Footer Area =================-->
-        
-        
-        
-        
-        
-        
-        <!-- Optional JavaScript -->
-        <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-      
+@endforeach
 
-</x-home>
+@endsection

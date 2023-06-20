@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\PortoProfileController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -17,9 +18,7 @@ use Illuminate\Support\Facades\Route;
 
 
 
-Route::get('/', function () {
-    return view('home.index');
-})->name('root');
+Route::get('/', [PortoProfileController::class, 'index'])->name('root');
 
 Route::get('/dashboard', function () {
     return view('dashboard');
