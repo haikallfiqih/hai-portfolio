@@ -1,6 +1,6 @@
 @extends('layouts.home')
 
-@section('title', 'Home')
+@section('title', 'Portfolio')
 
 @section('content')
 @foreach ($profiles as $profile)
@@ -35,6 +35,9 @@
 								</ul>
 							</li> 
 							<li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
+							@if(Auth::check())
+								<li class="nav-item"><a class="nav-link text-bold text-primary" href="{{ route('admin.index') }}">Dashboard</a></li>
+							@endif
 							<li class="nav-item"><a class="btn btn-md btn-primary p-2" href="contact.html">Download Resume</a></li>
 						</ul>
 					</div> 
@@ -50,15 +53,15 @@
            		<div class="banner_inner d-flex align-items-center">
 					<div class="banner_content">
 						<div class="media">
-							<div class="d-flex">
-								<img src="img/personal.jpg" alt="">
+							<div class="d-flex ">
+								<img src="{{ asset('storage/' . $profile->image_path) }}" alt="Image of {{ $profile->name }}">
 							</div>
 							<div class="media-body">
 								<div class="personal_text">
-									<h6>Hello Everybody, i am</h6>
+									<h6>{{ $profile->title_header }}</h6>
 									<h3>{{ $profile->name }}</h3>
-									<h4>Junior UI/UX Developer</h4>
-									<p>You will begin to realise why this exercise is called the Dickens Pattern (with reference to the ghost showing Scrooge some different futures)</p>
+									<h4>{{ $profile->title }}</h4>
+									<p>{{ $profile->description }}</p>
 									<ul class="list basic_info">
 										<li><a href="#"><i class="lnr lnr-calendar-full"></i> 31st December, 1992</a></li>
 										<li><a href="#"><i class="lnr lnr-phone-handset"></i> 44 (012) 6954 783</a></li>

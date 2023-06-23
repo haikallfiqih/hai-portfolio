@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\BioProfileController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\PortoProfileController;
 use Illuminate\Support\Facades\Route;
@@ -26,6 +27,11 @@ Route::get('/dashboard', function () {
 
 Route::prefix('/admin')->name('admin.')->middleware('auth')->group(function () {
     Route::get('/dashboard', [AdminController::class, 'index'])->name('index');
+    Route::get('/bio', [BioProfileController::class, 'index'])->name('bio');
+
+
+    // operation
+    Route::post('/updatebio', [BioProfileController::class, 'update'])->name('bio.update');
 });
 
 Route::middleware('auth')->group(function () {

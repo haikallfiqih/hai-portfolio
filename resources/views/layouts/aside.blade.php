@@ -36,8 +36,13 @@
         </a>
         <ul class="menu-sub">
           <li class="menu-item">
+            <a href="{{ route('admin.bio') }}" class="menu-link">
+              <div data-i18n="Account">Bio</div>
+            </a>
+          </li>
+          <li class="menu-item">
             <a href="pages-account-settings-account.html" class="menu-link">
-              <div data-i18n="Account">New Post</div>
+              <div data-i18n="Account">About</div>
             </a>
           </li>
           <li class="menu-item">
