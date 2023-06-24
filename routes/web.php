@@ -5,6 +5,7 @@ use App\Http\Controllers\BioProfileController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\PortoProfileController;
 use App\Http\Controllers\ContactController;
+use App\Http\Controllers\SocialMediaController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -29,6 +30,8 @@ Route::get('/dashboard', function () {
 Route::prefix('/admin')->name('admin.')->middleware('auth')->group(function () {
     Route::get('/dashboard', [AdminController::class, 'index'])->name('index');
     Route::get('/bio', [BioProfileController::class, 'index'])->name('bio');
+    Route::get('/contact', [ContactController::class, 'index'])->name('contact');
+    Route::get('/social-media', [SocialMediaController::class, 'index'])->name('social.media');
 
 
     // operation
@@ -39,6 +42,11 @@ Route::prefix('/admin')->name('admin.')->middleware('auth')->group(function () {
     Route::post('/addcontact', [ContactController::class, 'store'])->name('contact.store');
     Route::post('/updatecontact', [ContactController::class, 'update'])->name('contact.update');
     Route::post('/deletecontact/{id}', [ContactController::class, 'destroy'])->name('contact.destroy');
+
+    // social media
+    Route::post('/addsocialmedia', [SocialMediaController::class, 'store'])->name('social.media.store');
+    Route::post('/updatesocialmedia', [SocialMediaController::class, 'update'])->name('social.media.update');
+    Route::post('/deletesocialmedia/{id}', [SocialMediaController::class, 'destroy'])->name('social.media.destroy');
 });
 
 Route::middleware('auth')->group(function () {

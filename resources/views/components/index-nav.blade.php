@@ -30,9 +30,9 @@
                         </li> 
                         <li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
                         @if(Auth::check())
-                            <li class="nav-item"><a class="nav-link text-bold text-primary" href="{{ route('admin.index') }}">Dashboard</a></li>
+                            <li class="nav-item"><a class="btn btn-md btn-primary p-2" href="{{ route('admin.index') }}">Dashboard</a></li>
                         @endif
-                        <li class="nav-item"><a class="btn btn-md btn-primary p-2" href="contact.html">Download Resume</a></li>
+                        {{-- <li class="nav-item"><a class="btn btn-md btn-primary p-2" href="contact.html">Download Resume</a></li> --}}
                     </ul>
                 </div> 
             </div>

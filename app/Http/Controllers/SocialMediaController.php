@@ -12,7 +12,10 @@ class SocialMediaController extends Controller
      */
     public function index()
     {
-        //
+        $socialMedia = SocialMedia::all();
+        return view('admin.social-media', [
+            'socialMedia' => $socialMedia
+        ]);
     }
 
     /**
@@ -28,7 +31,12 @@ class SocialMediaController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $socialmedia = $request->all();
+        // return $socialmedia;
+
+        SocialMedia::create($socialmedia);
+
+        return redirect()->route('admin.social.media')->with('success', 'Account added');
     }
 
     /**
@@ -52,14 +60,30 @@ class SocialMediaController extends Controller
      */
     public function update(Request $request, SocialMedia $socialMedia)
     {
-        //
+        $data = $request->all();
+
+        $id = $data['id'];
+        $socialmedia = SocialMedia::findOrFail($id);
+    
+        $socialmedia->icon = $data['icon'] ?? $socialmedia->icon;
+        $socialmedia->name = $data['name'] ?? $socialmedia->name;
+        $socialmedia->url = $data['url'] ?? $socialmedia->url;
+    
+        $socialmedia->save();
+    
+        return redirect()->route('admin.social.media')->with('success', 'Account updated');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(SocialMedia $socialMedia)
+    public function destroy(SocialMedia $socialMedia, $id)
     {
-        //
+        // $socialmedia = SocialMedia::findOrFail($id);
+        // $socialmedia->delete();
+
+        SocialMedia::destroy($id);
+
+        return redirect()->route('admin.social.media')->with('success', 'Account deleted');
     }
 }

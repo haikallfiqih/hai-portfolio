@@ -41,10 +41,14 @@
 										@endforeach
 									</ul>
 									<ul class="list personal_social">
-										<li><a href="#"><i class="fa fa-facebook"></i></a></li>
-										<li><a href="#"><i class="fa fa-twitter"></i></a></li>
-										<li><a href="#"><i class="fa fa-linkedin"></i></a></li>
+										@foreach ($socialmedia as $social)
+											<li><a href="{{ $social->url }}" target="_blank">{!! $social->icon !!}</a></li>
+										@endforeach
 									</ul>
+
+									<div class="my-4">
+										<a href="" class="btn btn-md btn-primary p-2">Download Resume</a>
+									</div>
 								</div>
 							</div>
 						</div>

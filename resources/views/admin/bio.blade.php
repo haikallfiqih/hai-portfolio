@@ -10,25 +10,12 @@
 <div class="container-xxl flex-grow-1 container-p-y">
     <div class="row">
       <div class="col-md-12">
+        <x-alert.success />
         
         <div class="card mb-4">
           <h5 class="card-header">Profile Details</h5>
           <!-- Account -->
           <div class="card-body">
-           {{-- alert when success --}}
-            @if (session('success'))
-            <div class="alert alert-success alert-dismissible fade show" role="alert">
-              <strong>Success!</strong> {{ session('success') }}
-              <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-            </div>
-            @endif
-            {{-- alert when error --}}
-            @if (session('error'))
-            <div class="alert alert-danger alert-dismissible fade show" role="alert">
-              <strong>Error!</strong> {{ session('error') }}
-              <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-            </div>
-            @endif
             <form action="{{ route('admin.bio.update') }}" method="post" enctype="multipart/form-data">
               @csrf
               <input type="hidden" name="id" value="{{ $bio->id }}">
@@ -115,113 +102,6 @@
             </form>
           </div>
           <!-- /Account -->
-        </div>
-
-        <div class="card">
-          <h5 class="card-header">Contact</h5>
-          <div class="card-body">
-
-          <form action="{{ route('admin.contact.store') }}" method="post">
-            @csrf
-            <div class="row">
-                <div class="col-md-1" id="uip-select-btn">
-                  <div  id="output" class="">
-                    <label for="output-icon">Icon</label>
-                    {{-- <input type="text" id="output-icon" class="form-control demo-output-icon"></input> --}}
-                    <div id="output-icon" class="demo-output-icon"><i class="fa-solid fa-plus"></i></div>
-                    <input type="hidden" id="output-icon-hidden" name="icon">
-                  </div>
-                </div>
-
-                <div class="col-md-3 ml-1 ml-sm-0">
-                  <label for="name">Name</label>
-                  <input type="text" name="name" id="name" class="form-control">
-                </div>
-
-                <div class="col-md-5 ml-sm-0">
-                  <label for="desc">Description</label>
-                  <input type="text" name="description" id="desc" class="form-control">
-                </div>
-                
-                <div class="col-md-3 d-flex">
-                  <div class="">
-                    <label for="desc"></label> <br>
-                    <input type="submit" value="Add New" id="desc" class="btn btn-primary">
-                  </div>
-    
-                </div>
-            </div>
-          </form>
-
-          <hr>
-
-          @foreach ($contacts as $contact )
-          <form action="{{ route('admin.contact.update') }}" method="post">
-            @csrf
-            <input type="hidden" name="id" value="{{ $contact->id }}">
-            <div class="row mt-3">
-                <div class="col-md-1" id="uip-select-btn{{ $contact->id }}">
-                  <div  id="output" class="">
-                    <label for="output-icon{{ $contact->id }}">Icon</label>
-                    {{-- <input type="text" id="output-icon" class="form-control demo-output-icon"></input> --}}
-                    <div id="output-icon{{ $contact->id }}" class="demo-output-icon">
-                      {!! $contact->icon !!}
-                    </div>
-                    <input type="hidden" id="output-icon-hidden{{ $contact->id }}" name="icon">
-                  </div>
-                </div>
-
-                <div class="col-md-7 ml-1 ml-sm-0">
-                  <label for="desc">{{ $contact->name }}</label>
-                  <input type="text" name="description" value="{{ $contact->description }}" id="desc" class="form-control">
-                </div>
-                
-                <div class="col-md-4 d-flex">
-                  <div class="">
-                    <label for="desc"></label> <br>
-                    <input type="submit" value="Update" id="desc" class="btn btn-primary">
-                  </div>
-                </form>
-    
-                  <form action="{{ route('admin.contact.destroy', $contact->id) }}" method="post">
-                    @csrf
-                    <div class="mx-1">
-                      <label for="desc"></label> <br>
-                      <input type="submit" id="desc" value="Delete" class="btn btn-danger">
-                    </div>
-                  </form>
-                </div>
-            </div>
-            <script>
-              document.addEventListener('DOMContentLoaded', function(event) {
-                  var uip = new UniversalIconPicker('#uip-select-btn{{ $contact->id }}', {
-                      iconLibraries: [
-                          // 'happy-icons.min.json',
-                          'font-awesome.min.json'
-                      ],
-                      iconLibrariesCss: [
-                          'happy-icons.min.css',
-                          'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css'
-                      ],
-                      resetSelector: '#uip-reset-btn',
-                      onSelect: function(jsonIconData) {
-                          console.log(jsonIconData);
-                          // document.getElementById('output-json').innerHTML = JSON.stringify(jsonIconData, null, 4);
-                          document.getElementById('output-icon{{ $contact->id }}').innerHTML = jsonIconData.iconHtml;
-                          document.getElementById('output-icon-hidden{{ $contact->id }}').value = jsonIconData.iconHtml;
-                          document.getElementById('output').classList.remove('hidden');
-                      },
-                      onReset: function() {
-                          document.getElementById('output-json').innerHTML = '';
-                          document.getElementById('output-icon').innerHTML = '';
-                          document.getElementById('output').classList.add('hidden');
-                      }
-                  });
-              });
-          </script>          
-          @endforeach
-
-          </div>
         </div>
       </div>
     </div>

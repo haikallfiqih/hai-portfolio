@@ -16,7 +16,7 @@ class ContactController extends Controller
     public function index()
     {
         $contacts = Contact::all();
-        return view('admin.bio', [
+        return view('admin.contact', [
             'contacts' => $contacts
         ]);
     }
@@ -39,7 +39,7 @@ class ContactController extends Controller
 
         Contact::create($contact);
 
-        return redirect()->route('admin.bio')->with('success', 'Contact added');
+        return redirect()->route('admin.contact')->with('success', 'Contact added');
     }
 
     /**
@@ -73,7 +73,7 @@ class ContactController extends Controller
     
         $contact->save();
     
-        return redirect()->route('admin.bio')->with('success', 'Contact updated');
+        return redirect()->route('admin.contact')->with('success', 'Contact updated');
     }
 
     /**
@@ -81,7 +81,6 @@ class ContactController extends Controller
      */
     public function destroy(Contact $contact, $id)
     {
-        // Delete contact based on id
         // $id = $contact->id;
         Contact::destroy($id);
         

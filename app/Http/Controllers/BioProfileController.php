@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\PortoProfile;
 use App\Models\Contact;
-
+use App\Models\SocialMedia;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
