@@ -2,6 +2,10 @@
 
 @section('title', 'Bio')
 
+@section('style')
+  <link rel="stylesheet" href="{{ asset('universal-icon-picker/assets/stylesheets/icon-picker.css') }}">
+@endsection
+
 @section('content')
 <div class="container-xxl flex-grow-1 container-p-y">
     <div class="row">
@@ -29,12 +33,12 @@
               @csrf
               <input type="hidden" name="id" value="{{ $bio->id }}">
             <div class="d-flex align-items-start align-items-sm-center gap-4">
-              <div class="border border-dark border-2 rounded">
+              <div class="border border-b-slate-950 border-2 rounded overflow-clip">
               <img
               src="{{ asset('storage/' . $bio->image_path) }}" alt="Image of {{ $bio->name }}"
               alt="user-avatar"
-              class="d-block rounded"
-              height="100"
+              class="d-block "
+              height="auto"
               width="100"
               id="uploadedAvatar"
             />
@@ -112,32 +116,145 @@
           </div>
           <!-- /Account -->
         </div>
+
         <div class="card">
-          <h5 class="card-header">Delete Account</h5>
+          <h5 class="card-header">Contact</h5>
           <div class="card-body">
-            <div class="mb-3 col-12 mb-0">
-              <div class="alert alert-warning">
-                <h6 class="alert-heading fw-bold mb-1">Are you sure you want to delete your account?</h6>
-                <p class="mb-0">Once you delete your account, there is no going back. Please be certain.</p>
-              </div>
+
+          <form action="{{ route('admin.contact.store') }}" method="post">
+            @csrf
+            <div class="row">
+                <div class="col-md-1" id="uip-select-btn">
+                  <div  id="output" class="">
+                    <label for="output-icon">Icon</label>
+                    {{-- <input type="text" id="output-icon" class="form-control demo-output-icon"></input> --}}
+                    <div id="output-icon" class="demo-output-icon"><i class="fa-solid fa-plus"></i></div>
+                    <input type="hidden" id="output-icon-hidden" name="icon">
+                  </div>
+                </div>
+
+                <div class="col-md-3 ml-1 ml-sm-0">
+                  <label for="name">Name</label>
+                  <input type="text" name="name" id="name" class="form-control">
+                </div>
+
+                <div class="col-md-5 ml-sm-0">
+                  <label for="desc">Description</label>
+                  <input type="text" name="description" id="desc" class="form-control">
+                </div>
+                
+                <div class="col-md-3 d-flex">
+                  <div class="">
+                    <label for="desc"></label> <br>
+                    <input type="submit" value="Add New" id="desc" class="btn btn-primary">
+                  </div>
+    
+                </div>
             </div>
-            <form id="formAccountDeactivation" onsubmit="return false">
-              <div class="form-check mb-3">
-                <input
-                  class="form-check-input"
-                  type="checkbox"
-                  name="accountActivation"
-                  id="accountActivation"
-                />
-                <label class="form-check-label" for="accountActivation"
-                  >I confirm my account deactivation</label
-                >
-              </div>
-              <button type="submit" class="btn btn-danger deactivate-account">Deactivate Account</button>
-            </form>
+          </form>
+
+          <hr>
+
+          @foreach ($contacts as $contact )
+          <form action="{{ route('admin.contact.update') }}" method="post">
+            @csrf
+            <input type="hidden" name="id" value="{{ $contact->id }}">
+            <div class="row mt-3">
+                <div class="col-md-1" id="uip-select-btn{{ $contact->id }}">
+                  <div  id="output" class="">
+                    <label for="output-icon{{ $contact->id }}">Icon</label>
+                    {{-- <input type="text" id="output-icon" class="form-control demo-output-icon"></input> --}}
+                    <div id="output-icon{{ $contact->id }}" class="demo-output-icon">
+                      {!! $contact->icon !!}
+                    </div>
+                    <input type="hidden" id="output-icon-hidden{{ $contact->id }}" name="icon">
+                  </div>
+                </div>
+
+                <div class="col-md-7 ml-1 ml-sm-0">
+                  <label for="desc">{{ $contact->name }}</label>
+                  <input type="text" name="description" value="{{ $contact->description }}" id="desc" class="form-control">
+                </div>
+                
+                <div class="col-md-4 d-flex">
+                  <div class="">
+                    <label for="desc"></label> <br>
+                    <input type="submit" value="Update" id="desc" class="btn btn-primary">
+                  </div>
+                </form>
+    
+                  <form action="{{ route('admin.contact.destroy', $contact->id) }}" method="post">
+                    @csrf
+                    <div class="mx-1">
+                      <label for="desc"></label> <br>
+                      <input type="submit" id="desc" value="Delete" class="btn btn-danger">
+                    </div>
+                  </form>
+                </div>
+            </div>
+            <script>
+              document.addEventListener('DOMContentLoaded', function(event) {
+                  var uip = new UniversalIconPicker('#uip-select-btn{{ $contact->id }}', {
+                      iconLibraries: [
+                          // 'happy-icons.min.json',
+                          'font-awesome.min.json'
+                      ],
+                      iconLibrariesCss: [
+                          'happy-icons.min.css',
+                          'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css'
+                      ],
+                      resetSelector: '#uip-reset-btn',
+                      onSelect: function(jsonIconData) {
+                          console.log(jsonIconData);
+                          // document.getElementById('output-json').innerHTML = JSON.stringify(jsonIconData, null, 4);
+                          document.getElementById('output-icon{{ $contact->id }}').innerHTML = jsonIconData.iconHtml;
+                          document.getElementById('output-icon-hidden{{ $contact->id }}').value = jsonIconData.iconHtml;
+                          document.getElementById('output').classList.remove('hidden');
+                      },
+                      onReset: function() {
+                          document.getElementById('output-json').innerHTML = '';
+                          document.getElementById('output-icon').innerHTML = '';
+                          document.getElementById('output').classList.add('hidden');
+                      }
+                  });
+              });
+          </script>          
+          @endforeach
+
           </div>
         </div>
       </div>
     </div>
   </div>
+@endsection
+
+@section('script')
+<script src="{{ asset('universal-icon-picker/assets/js/universal-icon-picker.js') }}"></script>
+<script>
+  document.addEventListener('DOMContentLoaded', function(event) {
+        var uip = new UniversalIconPicker('#uip-select-btn', {
+            iconLibraries: [
+            'happy-icons.min.json',
+            'font-awesome.min.json'
+            ],
+            iconLibrariesCss: [
+            'happy-icons.min.css',
+            'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css'
+            ],
+            resetSelector: '#uip-reset-btn',
+            onSelect: function(jsonIconData) {
+                console.log(jsonIconData);
+                // document.getElementById('output-json').innerHTML = JSON.stringify(jsonIconData, null, 4);
+                document.getElementById('output-icon').innerHTML = jsonIconData.iconHtml;
+                document.getElementById('output-icon-hidden').value = jsonIconData.iconHtml;
+                document.getElementById('output').classList.remove('hidden');
+            },
+            onReset: function() {
+                document.getElementById('output-json').innerHTML = '';
+                document.getElementById('output-icon').innerHTML = '';
+                document.getElementById('output').classList.add('hidden');
+            }
+            });
+        });
+</script>
 @endsection

@@ -4,6 +4,7 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\BioProfileController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\PortoProfileController;
+use App\Http\Controllers\ContactController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -31,7 +32,13 @@ Route::prefix('/admin')->name('admin.')->middleware('auth')->group(function () {
 
 
     // operation
+    // bio
     Route::post('/updatebio', [BioProfileController::class, 'update'])->name('bio.update');
+
+    // contact
+    Route::post('/addcontact', [ContactController::class, 'store'])->name('contact.store');
+    Route::post('/updatecontact', [ContactController::class, 'update'])->name('contact.update');
+    Route::post('/deletecontact/{id}', [ContactController::class, 'destroy'])->name('contact.destroy');
 });
 
 Route::middleware('auth')->group(function () {

@@ -8,7 +8,7 @@
 
 
         <title>Hai - @yield('title')</title>
-
+        @yield('style')
 
         <!-- Fonts -->
         <link rel="preconnect" href="https://fonts.bunny.net">
@@ -28,9 +28,10 @@
           <link rel="stylesheet" href="css/responsive.css">
 
         <!-- Scripts -->
-        {{-- @vite(['resources/css/app.css', 'resources/js/app.js']) --}}
     </head>
     <body class="font-sans antialiased">
+        <x-index-nav />
+        
         <div class="min-h-screen bg-gray-100">
             <main>
                 @yield('content')

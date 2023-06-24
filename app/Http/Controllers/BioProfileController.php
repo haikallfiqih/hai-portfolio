@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\PortoProfile;
+use App\Models\Contact;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
@@ -15,9 +16,11 @@ class BioProfileController extends Controller
     public function index()
     {
         $bio = PortoProfile::first();
+        $contacts = Contact::all();
         // $bio = PortoProfile::all();
         return view('admin.bio', [
-            'bio' => $bio
+            'bio' => $bio,
+            'contacts' => $contacts
         ]);
     }
 

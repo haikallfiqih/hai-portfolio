@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\PortoProfile;
+use App\Models\Contact;
 use App\Http\Requests\StorePortoProfileRequest;
 use App\Http\Requests\UpdatePortoProfileRequest;
 
@@ -14,8 +15,13 @@ class PortoProfileController extends Controller
     public function index()
     {
         $profiles = PortoProfile::all();
+        $contacts = Contact::all();
+
         // return $profiles;
-        return view('home.index', compact('profiles'));
+        return view('home.index', [
+            'profiles' => $profiles,
+            'contacts' => $contacts
+        ]);
     }
     
 

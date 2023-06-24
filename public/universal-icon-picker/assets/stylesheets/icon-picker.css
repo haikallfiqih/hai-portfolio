@@ -1,0 +1,15 @@
+.demo-output-icon {
+    
+    text-align: center;
+  }
+  .demo-output-icon i {
+    font-size: 32px !important;
+  }
+  .demo-output-icon-sm {
+    margin: 10px 0;
+    text-align: center;
+  }
+  .demo-output-icon-sm i {
+    font-size: 25px !important;
+  }
+  

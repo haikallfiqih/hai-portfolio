@@ -54,6 +54,7 @@
     <link rel="stylesheet" href="{{ asset('admin/assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.css') }}" />
 
     <link rel="stylesheet" href="{{ asset('admin/assets/vendor/libs/apex-charts/apex-charts.css') }}" />
+    @yield('style')
 
     <!-- Page CSS -->
 
@@ -105,7 +106,7 @@
     </div>
     <!-- / Layout wrapper -->
 
-  
+    @yield('script')
 
     <!-- Core JS -->
     <!-- build:js assets/vendor/js/core.js -->

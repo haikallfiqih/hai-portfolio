@@ -1,50 +1,16 @@
 @extends('layouts.home')
 
 @section('title', 'Portfolio')
+@section('style')
+{{-- @vite(['resources/css/app.css', 'resources/js/app.js']) --}}
+<link rel="stylesheet" href="{{ asset('fontawesome-free/css/all.css') }}">
+<link rel="stylesheet" href="{{ asset('universal-icon-picker/assets/stylesheets/icon-picker.css') }}">
+
+@endsection
 
 @section('content')
 @foreach ($profiles as $profile)
-	<header class="header_area">
-		<div class="main_menu">
-			<nav class="navbar navbar-expand-lg navbar-light">
-				<div class="container box_1620">
-					<!-- Brand and toggle get grouped for better mobile display -->
-					<a class="navbar-brand logo_h" href="/"><img src="img/hai-light.png" alt=""></a>
-					<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-						<span class="icon-bar"></span>
-						<span class="icon-bar"></span>
-						<span class="icon-bar"></span>
-					</button>
-					<!-- Collect the nav links, forms, and other content for toggling -->
-					<div class="collapse navbar-collapse offset" id="navbarSupportedContent">
-						<ul class="nav navbar-nav menu_nav ml-auto align-items-center">
-							<li class="nav-item active"><a class="nav-link" href="/">Home</a></li> 
-							<li class="nav-item"><a class="nav-link" href="about-us.html">About</a></li> 
-							<li class="nav-item submenu dropdown">
-								<a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Pages</a>
-								<ul class="dropdown-menu">
-									<li class="nav-item"><a class="nav-link" href="portfolio.html">Portfolio</a></li>
-									<li class="nav-item"><a class="nav-link" href="elements.html">Elements</a></li>
-								</ul>
-							</li> 
-							<li class="nav-item submenu dropdown">
-								<a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Blog</a>
-								<ul class="dropdown-menu">
-									<li class="nav-item"><a class="nav-link" href="blog.html">Blog</a></li>
-									<li class="nav-item"><a class="nav-link" href="single-blog.html">Blog Details</a></li>
-								</ul>
-							</li> 
-							<li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
-							@if(Auth::check())
-								<li class="nav-item"><a class="nav-link text-bold text-primary" href="{{ route('admin.index') }}">Dashboard</a></li>
-							@endif
-							<li class="nav-item"><a class="btn btn-md btn-primary p-2" href="contact.html">Download Resume</a></li>
-						</ul>
-					</div> 
-				</div>
-			</nav>
-		</div>
-	</header>
+	
 	<!--================Header Menu Area =================-->
         
         <!--================Home Banner Area =================-->
@@ -52,21 +18,27 @@
            	<div class="container box_1620">
            		<div class="banner_inner d-flex align-items-center">
 					<div class="banner_content">
-						<div class="media">
-							<div class="d-flex ">
-								<img src="{{ asset('storage/' . $profile->image_path) }}" alt="Image of {{ $profile->name }}">
+						<div class="d-md-flex d-sm-block align-items-center">
+							<div class="w-50 max-w-md rounded">
+								<img src="{{ asset('storage/' . $profile->image_path) }}" alt="Image of {{ $profile->name }}" style="max-width: 100%; height: auto; overflow: auto" class="rounded">
+								{{-- <img src="{{ asset('img/personal.jpg') }}" alt="Image of {{ $profile->name }}"> --}}
 							</div>
-							<div class="media-body">
+							<div class="media-body mt-3 mt-md-0 ml-sm-0 ml-md-5">
 								<div class="personal_text">
 									<h6>{{ $profile->title_header }}</h6>
 									<h3>{{ $profile->name }}</h3>
 									<h4>{{ $profile->title }}</h4>
 									<p>{{ $profile->description }}</p>
+
 									<ul class="list basic_info">
-										<li><a href="#"><i class="lnr lnr-calendar-full"></i> 31st December, 1992</a></li>
-										<li><a href="#"><i class="lnr lnr-phone-handset"></i> 44 (012) 6954 783</a></li>
-										<li><a href="#"><i class="lnr lnr-envelope"></i> businessplan@donald</a></li>
-										<li><a href="#"><i class="lnr lnr-home"></i> Santa monica bullevard</a></li>
+										@foreach ($contacts as $contact)
+											<li>
+												<a href="#">
+													{!! $contact->icon !!}
+													{{ $contact->description }}
+												</a>
+											</li>
+										@endforeach
 									</ul>
 									<ul class="list personal_social">
 										<li><a href="#"><i class="fa fa-facebook"></i></a></li>
