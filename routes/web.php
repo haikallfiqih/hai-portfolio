@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AboutController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\BioProfileController;
 use App\Http\Controllers\ProfileController;
@@ -32,6 +33,7 @@ Route::prefix('/admin')->name('admin.')->middleware('auth')->group(function () {
     Route::get('/bio', [BioProfileController::class, 'index'])->name('bio');
     Route::get('/contact', [ContactController::class, 'index'])->name('contact');
     Route::get('/social-media', [SocialMediaController::class, 'index'])->name('social.media');
+    Route::get('/about', [AboutController::class, 'index'])->name('about');
 
 
     // operation
@@ -47,6 +49,9 @@ Route::prefix('/admin')->name('admin.')->middleware('auth')->group(function () {
     Route::post('/addsocialmedia', [SocialMediaController::class, 'store'])->name('social.media.store');
     Route::post('/updatesocialmedia', [SocialMediaController::class, 'update'])->name('social.media.update');
     Route::post('/deletesocialmedia/{id}', [SocialMediaController::class, 'destroy'])->name('social.media.destroy');
+
+    // about
+    Route::post('/updateabout/{id}', [AboutController::class, 'update'])->name('about.update');
 });
 
 Route::middleware('auth')->group(function () {

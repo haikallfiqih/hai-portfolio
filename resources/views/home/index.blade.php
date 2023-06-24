@@ -64,8 +64,8 @@
         		<div class="row welcome_inner">
         			<div class="col-lg-6">
         				<div class="welcome_text">
-        					<h4>About Myself</h4>
-        					<p>inappropriate behavior is often laughed off as “boys will be boys,” women face higher conduct standards especially in the workplace. That’s why it’s crucial that, as women, our behavior on the job is beyond reproach. inappropriate behavior is often laughed.</p>
+        					<h4>{{ $about->title }}</h4>
+        					<p>{{ $about->description }}</p>
         					<div class="row">
         						<div class="col-md-4">
         							<div class="wel_item">
